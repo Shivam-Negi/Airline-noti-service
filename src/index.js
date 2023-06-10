@@ -10,6 +10,7 @@ async function connectQueue() {
         channel.consume("noti-queue", async (data) => {
             console.log(`${Buffer.from(data.content)}`);
             const object = JSON.parse(`${Buffer.from(data.content)}`);
+            //console.log("recepient email is : ", object.recepientEmail)
             await EmailService.sendEmail("nekorare152@gmail.com", object.recepientEmail, object.subject, object.text);
             channel.ack(data);
         })
